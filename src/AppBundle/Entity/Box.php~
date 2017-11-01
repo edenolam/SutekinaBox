@@ -23,8 +23,8 @@ class Box
 
     /**
      * @var string
-     *
-     * @ORM\ManyToOne(targetEntity="AppBundle\Entity\Product", inversedBy="box")
+     * one box has many products
+     * @ORM\OneToMany(targetEntity="AppBundle\Entity\Product", mappedBy="box")
      */
     private $products;
 
@@ -42,51 +42,28 @@ class Box
     private $theme;
 
     /**
-     * @var int
-     *
-     * @ORM\Column(name="price", type="integer")
+     * @var /DateTime
+     * @ORM\Column(name="createdAt", type="datetime")
      */
-    private $price;
+    private $createdAt;
 
-    /**
+    /** 
      * @var string
      *
      * @ORM\Column(name="status", type="boolean")
      */
     private $status;
 
+
+
     /**
      * Get id
      *
-     * @return int
+     * @return integer
      */
     public function getId()
     {
         return $this->id;
-    }
-
-    /**
-     * Set product
-     *
-     * @param string $product
-     *
-     * @return Box
-     */
-    public function setProduct($product)
-    {
-        $this->product = $product;
-
-        return $this;
-    }
-
-    /**
-     * Get product
-     *
-     * @return string
-     */
-    public function getProduct()
-    {
-        return $this->product;
     }
 
     /**
@@ -114,27 +91,129 @@ class Box
     }
 
     /**
-     * Set price
+     * Set theme
      *
-     * @param integer $price
+     * @param string $theme
      *
      * @return Box
      */
-    public function setPrice($price)
+    public function setTheme($theme)
     {
-        $this->price = $price;
+        $this->theme = $theme;
 
         return $this;
     }
 
     /**
-     * Get price
+     * Get theme
      *
-     * @return int
+     * @return string
      */
-    public function getPrice()
+    public function getTheme()
     {
-        return $this->price;
+        return $this->theme;
+    }
+
+    /**
+     * Set createdAt
+     *
+     * @param \DateTime $createdAt
+     *
+     * @return Box
+     */
+    public function setCreatedAt($createdAt)
+    {
+        $this->createdAt = $createdAt;
+
+        return $this;
+    }
+
+    /**
+     * Get createdAt
+     *
+     * @return \DateTime
+     */
+    public function getCreatedAt()
+    {
+        return $this->createdAt;
+    }
+
+    /**
+     * Set status
+     *
+     * @param boolean $status
+     *
+     * @return Box
+     */
+    public function setStatus($status)
+    {
+        $this->status = $status;
+
+        return $this;
+    }
+
+    /**
+     * Get status
+     *
+     * @return boolean
+     */
+    public function getStatus()
+    {
+        return $this->status;
+    }
+
+    /**
+     * Set products
+     *
+     * @param \AppBundle\Entity\Product $products
+     *
+     * @return Box
+     */
+    public function setProducts(\AppBundle\Entity\Product $products = null)
+    {
+        $this->products = $products;
+
+        return $this;
+    }
+
+    /**
+     * Get products
+     *
+     * @return \AppBundle\Entity\Product
+     */
+    public function getProducts()
+    {
+        return $this->products;
+    }
+    /**
+     * Constructor
+     */
+    public function __construct()
+    {
+        $this->products = new \Doctrine\Common\Collections\ArrayCollection();
+    }
+
+    /**
+     * Add product
+     *
+     * @param \AppBundle\Entity\Product $product
+     *
+     * @return Box
+     */
+    public function addProduct(\AppBundle\Entity\Product $product)
+    {
+        $this->products[] = $product;
+
+        return $this;
+    }
+
+    /**
+     * Remove product
+     *
+     * @param \AppBundle\Entity\Product $product
+     */
+    public function removeProduct(\AppBundle\Entity\Product $product)
+    {
+        $this->products->removeElement($product);
     }
 }
-

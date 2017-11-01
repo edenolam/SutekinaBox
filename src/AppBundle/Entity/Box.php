@@ -23,8 +23,8 @@ class Box
 
     /**
      * @var string
-     *
-     * @ORM\ManyToOne(targetEntity="AppBundle\Entity\Product", inversedBy="box")
+     * one box has many products
+     * @ORM\OneToMany(targetEntity="AppBundle\Entity\Product", mappedBy="box")
      */
     private $products;
 
@@ -42,51 +42,28 @@ class Box
     private $theme;
 
     /**
-     * @var int
-     *
-     * @ORM\Column(name="price", type="integer")
+     * @var /DateTime
+     * @ORM\Column(name="createdAt", type="datetime")
      */
-    private $price;
+    private $createdAt;
 
-    /**
+    /** 
      * @var string
      *
      * @ORM\Column(name="status", type="boolean")
      */
     private $status;
 
+
+
     /**
      * Get id
      *
-     * @return int
+     * @return integer
      */
     public function getId()
     {
         return $this->id;
-    }
-
-    /**
-     * Set product
-     *
-     * @param string $product
-     *
-     * @return Box
-     */
-    public function setProduct($product)
-    {
-        $this->product = $product;
-
-        return $this;
-    }
-
-    /**
-     * Get product
-     *
-     * @return string
-     */
-    public function getProduct()
-    {
-        return $this->product;
     }
 
     /**
@@ -114,30 +91,6 @@ class Box
     }
 
     /**
-     * Set price
-     *
-     * @param integer $price
-     *
-     * @return Box
-     */
-    public function setPrice($price)
-    {
-        $this->price = $price;
-
-        return $this;
-    }
-
-    /**
-     * Get price
-     *
-     * @return int
-     */
-    public function getPrice()
-    {
-        return $this->price;
-    }
-
-    /**
      * Set theme
      *
      * @param string $theme
@@ -159,6 +112,30 @@ class Box
     public function getTheme()
     {
         return $this->theme;
+    }
+
+    /**
+     * Set createdAt
+     *
+     * @param \DateTime $createdAt
+     *
+     * @return Box
+     */
+    public function setCreatedAt($createdAt)
+    {
+        $this->createdAt = $createdAt;
+
+        return $this;
+    }
+
+    /**
+     * Get createdAt
+     *
+     * @return \DateTime
+     */
+    public function getCreatedAt()
+    {
+        return $this->createdAt;
     }
 
     /**
@@ -207,5 +184,36 @@ class Box
     public function getProducts()
     {
         return $this->products;
+    }
+    /**
+     * Constructor
+     */
+    public function __construct()
+    {
+        $this->products = new \Doctrine\Common\Collections\ArrayCollection();
+    }
+
+    /**
+     * Add product
+     *
+     * @param \AppBundle\Entity\Product $product
+     *
+     * @return Box
+     */
+    public function addProduct(\AppBundle\Entity\Product $product)
+    {
+        $this->products[] = $product;
+
+        return $this;
+    }
+
+    /**
+     * Remove product
+     *
+     * @param \AppBundle\Entity\Product $product
+     */
+    public function removeProduct(\AppBundle\Entity\Product $product)
+    {
+        $this->products->removeElement($product);
     }
 }

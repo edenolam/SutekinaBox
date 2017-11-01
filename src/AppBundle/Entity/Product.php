@@ -43,7 +43,13 @@ class Product
     private $isAvailable;
 
     /**
-     * @ORM\OneToMany(targetEntity="AppBundle\Entity\Box", mappedBy="products")
+     * one Product has one image
+     * @ORM\OneToOne(targetEntity="AppBundle\Entity\Image", cascade={"persist"})
+     */
+    private $image;
+
+    /**
+     * @ORM\OneToMany(targetEntity="AppBundle\Entity\Box", inversedBy="products)
      */
     private $box;
 
@@ -55,10 +61,20 @@ class Product
     private $category;
 
 
+
+
+    /**
+     * Constructor
+     */
+    public function __construct()
+    {
+        $this->box = new \Doctrine\Common\Collections\ArrayCollection();
+    }
+
     /**
      * Get id
      *
-     * @return int
+     * @return integer
      */
     public function getId()
     {
@@ -106,7 +122,7 @@ class Product
     /**
      * Get price
      *
-     * @return int
+     * @return integer
      */
     public function getPrice()
     {
@@ -130,7 +146,7 @@ class Product
     /**
      * Get isAvailable
      *
-     * @return bool
+     * @return boolean
      */
     public function getIsAvailable()
     {
@@ -160,12 +176,29 @@ class Product
     {
         return $this->category;
     }
+
     /**
-     * Constructor
+     * Set image
+     *
+     * @param \AppBundle\Entity\Image $image
+     *
+     * @return Product
      */
-    public function __construct()
+    public function setImage(\AppBundle\Entity\Image $image = null)
     {
-        $this->box = new \Doctrine\Common\Collections\ArrayCollection();
+        $this->image = $image;
+
+        return $this;
+    }
+
+    /**
+     * Get image
+     *
+     * @return \AppBundle\Entity\Image
+     */
+    public function getImage()
+    {
+        return $this->image;
     }
 
     /**

@@ -21,18 +21,24 @@ class Supplier
      */
     private $id;
 
+
     /**
-     * @var array
-     *
-     * @ORM\Column(name="product", type="json_array")
+     * @var string
+     * @ORM\ManyToOne(targetEntity="AppBundle\Entity\Product", inversedBy="supplier")
      */
-    private $product;
+    private $products;
+
+
+
+
+
+
 
 
     /**
      * Get id
      *
-     * @return int
+     * @return integer
      */
     public function getId()
     {
@@ -40,27 +46,26 @@ class Supplier
     }
 
     /**
-     * Set product
+     * Set products
      *
-     * @param array $product
+     * @param \AppBundle\Entity\Product $products
      *
      * @return Supplier
      */
-    public function setProduct($product)
+    public function setProducts(\AppBundle\Entity\Product $products = null)
     {
-        $this->product = $product;
+        $this->products = $products;
 
         return $this;
     }
 
     /**
-     * Get product
+     * Get products
      *
-     * @return array
+     * @return \AppBundle\Entity\Product
      */
-    public function getProduct()
+    public function getProducts()
     {
-        return $this->product;
+        return $this->products;
     }
 }
-
