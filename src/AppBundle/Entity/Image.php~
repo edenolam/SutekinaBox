@@ -5,8 +5,10 @@ use Doctrine\ORM\Mapping as ORM;
 use Symfony\Component\HttpFoundation\File\UploadedFile;
 
 /**
- * @ORM\Entity(repositoryClass="ImageRepository")
+ * Image
+ *
  * @ORM\Table(name="image")
+ * @ORM\Entity(repositoryClass="AppBundle\Repository\ImageRepository")
  * @ORM\HasLifecycleCallbacks()
  */
 class Image

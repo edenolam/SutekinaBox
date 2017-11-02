@@ -49,7 +49,7 @@ class Product
     private $image;
 
     /**
-     * @ORM\OneToMany(targetEntity="AppBundle\Entity\Box", inversedBy="products)
+     * @ORM\ManyToMany(targetEntity="AppBundle\Entity\Box", inversedBy="products")
      */
     private $box;
 
@@ -233,5 +233,19 @@ class Product
     public function getBox()
     {
         return $this->box;
+    }
+
+    /**
+     * Set box
+     *
+     * @param \AppBundle\Entity\Box $box
+     *
+     * @return Product
+     */
+    public function setBox(\AppBundle\Entity\Box $box = null)
+    {
+        $this->box = $box;
+
+        return $this;
     }
 }

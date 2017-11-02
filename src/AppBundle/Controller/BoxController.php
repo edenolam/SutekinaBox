@@ -44,6 +44,7 @@ class BoxController extends Controller
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
+            $box->setCreatedAt(new \DateTime());
             $em = $this->getDoctrine()->getManager();
             $em->persist($box);
             $em->flush();

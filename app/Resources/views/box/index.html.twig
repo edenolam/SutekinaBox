@@ -1,17 +1,18 @@
 {% extends 'base.html.twig' %}
 
 {% block body %}
-    <h1>Boxes list</h1>
+    <h1>Liste des boxes</h1>
 
-    <table>
+    <table class="table">
         <thead>
             <tr>
-                <th>Id</th>
-                <th>Name</th>
+                <th>#</th>
+                <th>Nom</th>
                 <th>Theme</th>
-                <th>Createdat</th>
-                <th>Status</th>
-                <th>Actions</th>
+                <th>date de creation</th>
+                <th>Statut</th>
+                <th><i class="fa fa-eye"></i></th>
+                <th><i class="fa fa-edit"></i></th>
             </tr>
         </thead>
         <tbody>
@@ -20,26 +21,17 @@
                 <td><a href="{{ path('box_show', { 'id': box.id }) }}">{{ box.id }}</a></td>
                 <td>{{ box.name }}</td>
                 <td>{{ box.theme }}</td>
-                <td>{% if box.createdAt %}{{ box.createdAt|date('Y-m-d H:i:s') }}{% endif %}</td>
-                <td>{% if box.status %}Yes{% else %}No{% endif %}</td>
-                <td>
-                    <ul>
-                        <li>
-                            <a href="{{ path('box_show', { 'id': box.id }) }}">show</a>
-                        </li>
-                        <li>
-                            <a href="{{ path('box_edit', { 'id': box.id }) }}">edit</a>
-                        </li>
-                    </ul>
-                </td>
+                <td>{% if box.createdAt %}{{ box.createdAt|date('Y-m-d') }}{% endif %}</td>
+                <td>{% if box.status %}disponible{% else %}indisponible{% endif %}</td>
+                <td><a href="{{ path('box_show', { 'id': box.id }) }}"><i class="fa fa-eye"></i></a></td>
+                <td><a href="{{ path('box_edit', { 'id': box.id }) }}"><i class="fa fa-edit"></i></a></td>
+
             </tr>
         {% endfor %}
         </tbody>
     </table>
 
-    <ul>
-        <li>
-            <a href="{{ path('box_new') }}">Create a new box</a>
-        </li>
-    </ul>
+
+    <a href="{{ path('box_new') }}" class="btn btn-primary"><i class="fa fa-plus"></i> Creer une boxe</a>
+
 {% endblock %}

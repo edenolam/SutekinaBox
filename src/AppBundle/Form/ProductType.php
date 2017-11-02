@@ -2,12 +2,13 @@
 
 namespace AppBundle\Form;
 
-use Symfony\Bridge\Doctrine\Form\Type\EntityType;
+use AppBundle\Entity\Box;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
+use Symfony\Bridge\Doctrine\Form\Type\EntityType;
 
-class BoxType extends AbstractType
+class ProductType extends AbstractType
 {
     /**
      * {@inheritdoc}
@@ -16,25 +17,26 @@ class BoxType extends AbstractType
     {
         $builder
             ->add('name')
-            ->add('theme')
             ->add('price')
-            ->add('status')
-            ->add('products', EntityType::class,
-                [
-                    'class' => 'AppBundle\Entity\Product',
-                    'choice_label' => 'name',
-                    'multiple' => true,
-                    'expanded' => false
-                ]);
+            ->add('isAvailable')
+            ->add('category')
+            ->add('image')
+            ->add('box', EntityType::class,
+            [
+                'class' => 'AppBundle\Entity\Box',
+                'choice_label' => 'name',
+            ]
+            )
+        ;
     }
-
+    
     /**
      * {@inheritdoc}
      */
     public function configureOptions(OptionsResolver $resolver)
     {
         $resolver->setDefaults(array(
-            'data_class' => 'AppBundle\Entity\Box'
+            'data_class' => 'AppBundle\Entity\Product'
         ));
     }
 
@@ -43,7 +45,7 @@ class BoxType extends AbstractType
      */
     public function getBlockPrefix()
     {
-        return 'appbundle_box';
+        return 'appbundle_product';
     }
 
 

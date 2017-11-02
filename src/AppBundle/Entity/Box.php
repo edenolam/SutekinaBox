@@ -24,7 +24,7 @@ class Box
     /**
      * @var string
      * one box has many products
-     * @ORM\OneToMany(targetEntity="AppBundle\Entity\Product", mappedBy="box")
+     * @ORM\ManyToMany(targetEntity="AppBundle\Entity\Product", mappedBy="box")
      */
     private $products;
 
@@ -36,10 +36,19 @@ class Box
     private $name;
     /**
      * @var string
-     *
-     * @ORM\Column(name="theme", type="string", length=255)
-     */
+    *
+    * @ORM\Column(name="theme", type="string", length=255)
+    */
     private $theme;
+
+    /**
+     * @var integer
+     *
+     * @ORM\Column(name="price", type="integer")
+     */
+    private $price;
+
+
 
     /**
      * @var /DateTime
@@ -215,5 +224,29 @@ class Box
     public function removeProduct(\AppBundle\Entity\Product $product)
     {
         $this->products->removeElement($product);
+    }
+
+    /**
+     * Set price
+     *
+     * @param integer $price
+     *
+     * @return Box
+     */
+    public function setPrice($price)
+    {
+        $this->price = $price;
+
+        return $this;
+    }
+
+    /**
+     * Get price
+     *
+     * @return integer
+     */
+    public function getPrice()
+    {
+        return $this->price;
     }
 }
