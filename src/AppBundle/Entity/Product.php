@@ -38,25 +38,26 @@ class Product
     /**
      * @var bool
      *
-     * @ORM\Column(name="is_available", type="boolean")
+     * @ORM\Column(name="is_available", type="boolean", nullable=true)
      */
     private $isAvailable;
 
     /**
      * one Product has one image
-     * @ORM\OneToOne(targetEntity="AppBundle\Entity\Image", cascade={"persist"})
+     * @ORM\OneToOne(targetEntity="AppBundle\Entity\Image", orphanRemoval=true)
+     * @ORM\JoinColumn(nullable=true)
      */
     private $image;
 
     /**
-     * @ORM\ManyToMany(targetEntity="AppBundle\Entity\Box", inversedBy="products")
+     * @ORM\ManyToMany(targetEntity="AppBundle\Entity\Box", mappedBy="products")
      */
     private $box;
 
     /**
      * @var string
      *
-     * @ORM\Column(name="category", type="string", length=255, unique=true)
+     * @ORM\Column(name="category", type="string", length=255, unique=false, nullable=true)
      */
     private $category;
 

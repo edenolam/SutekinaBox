@@ -3,6 +3,7 @@
 namespace AppBundle\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
+use Symfony\Component\Validator\Constraints as Assert;
 
 /**
  * Box
@@ -23,8 +24,8 @@ class Box
 
     /**
      * @var string
-     * one box has many products
-     * @ORM\ManyToMany(targetEntity="AppBundle\Entity\Product", mappedBy="box")
+     * many boxes have many products
+     * @ORM\ManyToMany(targetEntity="AppBundle\Entity\Product", inversedBy="box")
      */
     private $products;
 
@@ -36,8 +37,8 @@ class Box
     private $name;
     /**
      * @var string
-    *
-    * @ORM\Column(name="theme", type="string", length=255)
+    * @Assert\NotNull()
+    * @ORM\Column(name="theme")
     */
     private $theme;
 

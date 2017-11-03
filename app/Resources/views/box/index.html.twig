@@ -11,8 +11,10 @@
                 <th>Theme</th>
                 <th>date de creation</th>
                 <th>Statut</th>
+                <th>produit</th>
                 <th><i class="fa fa-eye"></i></th>
                 <th><i class="fa fa-edit"></i></th>
+                <th><i class="fa fa-trash"></i></th>
             </tr>
         </thead>
         <tbody>
@@ -23,8 +25,10 @@
                 <td>{{ box.theme }}</td>
                 <td>{% if box.createdAt %}{{ box.createdAt|date('Y-m-d') }}{% endif %}</td>
                 <td>{% if box.status %}disponible{% else %}indisponible{% endif %}</td>
+                <td>{{ box.products | length }}</td>
                 <td><a href="{{ path('box_show', { 'id': box.id }) }}"><i class="fa fa-eye"></i></a></td>
                 <td><a href="{{ path('box_edit', { 'id': box.id }) }}"><i class="fa fa-edit"></i></a></td>
+                <td><a href="{{ path('box_delete', { 'id': box.id }) }}"><i class="fa fa-trash"></i></a></td>
 
             </tr>
         {% endfor %}

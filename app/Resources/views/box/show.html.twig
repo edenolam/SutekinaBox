@@ -15,6 +15,11 @@
             <p class="card-text">Prix : {{ box.price }}</p>
             <a href="{{ path('box_index') }}" class="card-link"><i class="fa fa-arrow-left" aria-hidden="true"></i>  retour</a>
             <a href="{{ path('box_edit', { 'id': box.id }) }}" class="card-link"><i class="fa fa-edit"></i></a>
+            <ul>
+                {% for product in box.products %}
+                    <li>{{ product.name }}</li>
+                {% endfor %}
+            </ul>
             {{ form_start(delete_form) }}
             <button type="submit" class="btn btn-danger btn-sm"><i class="fa fa-times" aria-hidden="true"></i> Supprimer</button>
             {{ form_end(delete_form) }}

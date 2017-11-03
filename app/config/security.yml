@@ -10,13 +10,18 @@ security:
         in_memory:
             memory:
                 users:
-                    julien:
-                        password: toto
-                        roles: 'ROLE_USER'
-                    admin:
-                        password: admin
-                        roles: 'ROLE_ADMIN'
+                    marketing:
+                        password: marketing
+                        roles: 'ROLE_MARKETING'
+                    fournisseur:
+                        password: fournisseur
+                        roles: 'ROLE_FOURNISSEUR'
+                    achat:
+                        password: achat
+                        roles: 'ROLE_ACHAT'
 
+    role_hierarchy:
+        ROLE_ADMIN: ['ROLE_MARKETING', 'ROLE_FOURNISSEUR', 'ROLE_ACHAT']
     firewalls:
         # disables authentication for assets and the profiler, adapt it according to your needs
         dev:
@@ -41,4 +46,7 @@ security:
 
     access_control:
         - { path: ^/admin, roles: ROLE_ADMIN }
+        - { path: ^/product, roles: ROLE_FOURNISSEUR }
+        - { path: ^/box, roles: ROLE_MARKETING }
+        - { path: ^/product, roles: ROLE_ACHAT }
         - { path: ^/, roles: IS_AUTHENTICATED_ANONYMOUSLY }

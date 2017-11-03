@@ -3,6 +3,8 @@
 namespace AppBundle\Controller;
 
 use AppBundle\Entity\Box;
+use AppBundle\Entity\Product;
+use Sensio\Bundle\FrameworkExtraBundle\Configuration\Security;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Method;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;use Symfony\Component\HttpFoundation\Request;
@@ -11,6 +13,7 @@ use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;use Symfony\Component
  * Box controller.
  *
  * @Route("box")
+ * @Security("has_role('ROLE_MARKETING')")
  */
 class BoxController extends Controller
 {
@@ -43,7 +46,7 @@ class BoxController extends Controller
         $form = $this->createForm('AppBundle\Form\BoxType', $box);
         $form->handleRequest($request);
 
-        if ($form->isSubmitted() && $form->isValid()) {
+        if ($form->isSubmitted() and $form->isValid()) {
             $box->setCreatedAt(new \DateTime());
             $em = $this->getDoctrine()->getManager();
             $em->persist($box);
@@ -104,6 +107,7 @@ class BoxController extends Controller
      *
      * @Route("/{id}", name="box_delete")
      * @Method("DELETE")
+     * @Security()
      */
     public function deleteAction(Request $request, Box $box)
     {
