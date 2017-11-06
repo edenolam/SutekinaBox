@@ -1,13 +1,14 @@
 {% extends 'base.html.twig' %}
 
 {% block body %}
-    <h1>Liste des boxes</h1>
+    <h2>Liste des boxes</h2>
 
     <table class="table">
         <thead>
             <tr>
                 <th>#</th>
                 <th>Nom</th>
+                <th>Prix</th>
                 <th>Theme</th>
                 <th>date de creation</th>
                 <th>Statut</th>
@@ -22,9 +23,10 @@
             <tr>
                 <td><a href="{{ path('box_show', { 'id': box.id }) }}">{{ box.id }}</a></td>
                 <td>{{ box.name }}</td>
+                <td>{{ box.price }} €</td>
                 <td>{{ box.theme }}</td>
-                <td>{% if box.createdAt %}{{ box.createdAt|date('Y-m-d') }}{% endif %}</td>
-                <td>{% if box.status %}disponible{% else %}indisponible{% endif %}</td>
+                <td>{% if box.createdAt %}{{ box.createdAt|date('d-m-Y') }}{% endif %}</td>
+                <td>{{ box.statut }}</td>
                 <td>{{ box.products | length }}</td>
                 <td><a href="{{ path('box_show', { 'id': box.id }) }}"><i class="fa fa-eye"></i></a></td>
                 <td><a href="{{ path('box_edit', { 'id': box.id }) }}"><i class="fa fa-edit"></i></a></td>
@@ -36,6 +38,6 @@
     </table>
 
 
-    <a href="{{ path('box_new') }}" class="btn btn-primary"><i class="fa fa-plus"></i> Creer une boxe</a>
+    <a href="{{ path('box_new') }}" class="btn btn-primary"><i class="fa fa-plus"></i> Créer une boxe</a>
 
 {% endblock %}

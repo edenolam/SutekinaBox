@@ -38,13 +38,13 @@ class Product
     /**
      * @var bool
      *
-     * @ORM\Column(name="is_available", type="boolean", nullable=true)
+     * @ORM\Column(name="is_available", type="boolean")
      */
-    private $isAvailable;
+    private $isAvailable = true;
 
     /**
      * one Product has one image
-     * @ORM\OneToOne(targetEntity="AppBundle\Entity\Image", orphanRemoval=true)
+     * @ORM\OneToOne(targetEntity="AppBundle\Entity\Image", cascade={"persist"})
      * @ORM\JoinColumn(nullable=true)
      */
     private $image;
@@ -55,11 +55,17 @@ class Product
     private $box;
 
     /**
+     *
+     * @ORM\ManyToOne(targetEntity="AppBundle\Entity\Supplier", inversedBy="products")
+     */
+    private $supplier;
+
+    /**
      * @var string
      *
-     * @ORM\Column(name="category", type="string", length=255, unique=false, nullable=true)
+     * @ORM\OneToOne(targetEntity="AppBundle\Entity\Category")
      */
-    private $category;
+    private $categories;
 
 
 
@@ -154,29 +160,6 @@ class Product
         return $this->isAvailable;
     }
 
-    /**
-     * Set category
-     *
-     * @param string $category
-     *
-     * @return Product
-     */
-    public function setCategory($category)
-    {
-        $this->category = $category;
-
-        return $this;
-    }
-
-    /**
-     * Get category
-     *
-     * @return string
-     */
-    public function getCategory()
-    {
-        return $this->category;
-    }
 
     /**
      * Set image
@@ -248,5 +231,77 @@ class Product
         $this->box = $box;
 
         return $this;
+    }
+
+    /**
+     * Add supplier
+     *
+     * @param \AppBundle\Entity\Supplier $supplier
+     *
+     * @return Product
+     */
+    public function addSupplier(\AppBundle\Entity\Supplier $supplier)
+    {
+        $this->supplier[] = $supplier;
+
+        return $this;
+    }
+
+    /**
+     * Remove supplier
+     *
+     * @param \AppBundle\Entity\Supplier $supplier
+     */
+    public function removeSupplier(\AppBundle\Entity\Supplier $supplier)
+    {
+        $this->supplier->removeElement($supplier);
+    }
+
+    /**
+     * Get supplier
+     *
+     * @return \Doctrine\Common\Collections\Collection
+     */
+    public function getSupplier()
+    {
+        return $this->supplier;
+    }
+
+    /**
+     * Set supplier
+     *
+     * @param \AppBundle\Entity\Supplier $supplier
+     *
+     * @return Product
+     */
+    public function setSupplier(\AppBundle\Entity\Supplier $supplier = null)
+    {
+        $this->supplier = $supplier;
+
+        return $this;
+    }
+
+    /**
+     * Set categories
+     *
+     * @param \AppBundle\Entity\Category $categories
+     *
+     * @return Product
+     */
+    public function setCategories(\AppBundle\Entity\Category $categories = null)
+    {
+        $this->categories = $categories;
+
+        return $this;
+    }
+
+    /**
+     * Get categories
+     *
+     * @return \AppBundle\Entity\Category
+     */
+    public function getCategories()
+    {
+        return $this->categories;
     }
 }

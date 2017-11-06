@@ -23,8 +23,9 @@ class Supplier
 
 
     /**
+     * one Supplier has many products
      * @var string
-     * @ORM\ManyToOne(targetEntity="AppBundle\Entity\Product", inversedBy="supplier")
+     * @ORM\OneToMany(targetEntity="AppBundle\Entity\Product", mappedBy="supplier")
      */
     private $products;
 
@@ -67,5 +68,36 @@ class Supplier
     public function getProducts()
     {
         return $this->products;
+    }
+    /**
+     * Constructor
+     */
+    public function __construct()
+    {
+        $this->products = new \Doctrine\Common\Collections\ArrayCollection();
+    }
+
+    /**
+     * Add product
+     *
+     * @param \AppBundle\Entity\Product $product
+     *
+     * @return Supplier
+     */
+    public function addProduct(\AppBundle\Entity\Product $product)
+    {
+        $this->products[] = $product;
+
+        return $this;
+    }
+
+    /**
+     * Remove product
+     *
+     * @param \AppBundle\Entity\Product $product
+     */
+    public function removeProduct(\AppBundle\Entity\Product $product)
+    {
+        $this->products->removeElement($product);
     }
 }

@@ -1,8 +1,16 @@
 {% extends 'base.html.twig' %}
 
 {% block body %}
-    bonjour {{ app.user }}
-    <a href="{{ path('box_new') }}">creer une box</a>
+    {% if app.user == null %}
+        connectez vous pour acceder a votre service
+    {% else %}
+        bonjour {{ app.user }}
+    {% endif %}
+    {% if app.user == "fournisseur" or app.user == "achat" %}
+        <a href="{{ path('product_index') }}">afficher les produits</a>
+    {% elseif app.user == "marketing" %}
+        <a href="{{ path('box_new') }}">creer une box</a>
+    {% endif %}
 {% endblock %}
 
 

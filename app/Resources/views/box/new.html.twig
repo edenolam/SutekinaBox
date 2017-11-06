@@ -1,16 +1,14 @@
 {% extends 'base.html.twig' %}
 
 {% block body %}
-    <h1>Box creation</h1>
+    <h1>Creation de box</h1>
 
     {{ form_start(form) }}
         {{ form_widget(form) }}
-        <input type="submit" value="Create" />
+        <input type="submit" class="btn btn-success" value="Valider" />
+    <a href="{{ path('box_index') }}" class="btn btn-primary"><i class="fa fa-arrow-left"></i> Retour a la liste</a>
     {{ form_end(form) }}
 
-    <ul>
-        <li>
-            <a href="{{ path('box_index') }}">Back to the list</a>
-        </li>
-    </ul>
+
+
 {% endblock %}

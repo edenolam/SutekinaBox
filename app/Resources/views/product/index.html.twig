@@ -1,17 +1,20 @@
 {% extends 'base.html.twig' %}
 
 {% block body %}
-    <h1>Products list</h1>
+    <h2>liste des produits</h2>
 
-    <table>
+    <table class="table">
         <thead>
             <tr>
                 <th>Id</th>
-                <th>Name</th>
-                <th>Price</th>
-                <th>Isavailable</th>
-                <th>Category</th>
-                <th>Actions</th>
+                <th>Nom</th>
+                <th>Image</th>
+                <th>Prix</th>
+                <th>Disponible</th>
+                <th>Categorie</th>
+                <th><i class="fa fa-eye"></i></th>
+                <th><i class="fa fa-edit"></i></th>
+                <th><i class="fa fa-trash"></i></th>
             </tr>
         </thead>
         <tbody>
@@ -19,27 +22,18 @@
             <tr>
                 <td><a href="{{ path('product_show', { 'id': product.id }) }}">{{ product.id }}</a></td>
                 <td>{{ product.name }}</td>
+                <td><img src="{{ product.image.url }}" alt="{{ product.image.alt }}"></td>
                 <td>{{ product.price }}</td>
                 <td>{% if product.isAvailable %}Yes{% else %}No{% endif %}</td>
-                <td>{{ product.category }}</td>
-                <td>
-                    <ul>
-                        <li>
-                            <a href="{{ path('product_show', { 'id': product.id }) }}">show</a>
-                        </li>
-                        <li>
-                            <a href="{{ path('product_edit', { 'id': product.id }) }}">edit</a>
-                        </li>
-                    </ul>
-                </td>
+                <td>{{ product.categories.name }}</td>
+                <td><a href="{{ path('product_show', { 'id': product.id }) }}"><i class="fa fa-eye"></i></a></td>
+                <td><a href="{{ path('product_edit', { 'id': product.id }) }}"><i class="fa fa-edit"></i></a></td>
+                <td><a href="{{ path('product_delete', { 'id': product.id }) }}"><i class="fa fa-trash"></i></a></td>
             </tr>
         {% endfor %}
         </tbody>
     </table>
 
-    <ul>
-        <li>
-            <a href="{{ path('product_new') }}">Create a new product</a>
-        </li>
-    </ul>
+    <a href="{{ path('product_new') }}" class="btn btn-primary"><i class="fa fa-plus"></i> creer un produit</a>
+
 {% endblock %}

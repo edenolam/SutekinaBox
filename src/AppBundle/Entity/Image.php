@@ -2,7 +2,6 @@
 namespace AppBundle\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
-use Symfony\Component\HttpFoundation\File\UploadedFile;
 
 /**
  * Image
@@ -23,36 +22,19 @@ class Image
     /**
      * @ORM\Column(type="string")
      */
-    private $name;
+    private $url;
 
     /**
      * @ORM\Column(type="string")
      */
-    private $extension;
+    private $alt;
 
-    /**
-     * @var UploadedFile
-     */
-    private $file;
 
-    /**
-     * @return UploadedFile
-     */
-    public function getFile()
-    {
-        return $this->file;
-    }
 
-    /**
-     * @param UploadedFile $file
-     * @return $this
-     */
-    public function setFile(UploadedFile $file)
-    {
-        $this->file = $file;
 
-        return $this;
-    }
+
+
+
 
     /**
      * Get id
@@ -65,50 +47,50 @@ class Image
     }
 
     /**
-     * Set name
+     * Set url
      *
-     * @param string $name
+     * @param string $url
      *
      * @return Image
      */
-    public function setName($name)
+    public function setUrl($url)
     {
-        $this->name = $name;
+        $this->url = $url;
 
         return $this;
     }
 
     /**
-     * Get name
+     * Get url
      *
      * @return string
      */
-    public function getName()
+    public function getUrl()
     {
-        return $this->name;
+        return $this->url;
     }
 
     /**
-     * Set extension
+     * Set alt
      *
-     * @param string $extension
+     * @param string $alt
      *
      * @return Image
      */
-    public function setExtension($extension)
+    public function setAlt($alt)
     {
-        $this->extension = $extension;
+        $this->alt = $alt;
 
         return $this;
     }
 
     /**
-     * Get extension
+     * Get alt
      *
      * @return string
      */
-    public function getExtension()
+    public function getAlt()
     {
-        return $this->extension;
+        return $this->alt;
     }
 }

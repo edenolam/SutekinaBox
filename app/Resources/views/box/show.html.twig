@@ -3,26 +3,45 @@
 {% block body %}
 
 
-    <div class="card" style="width: 20rem;">
+    <div class="card">
         <div class="card-header">
-            <h4>Box ref : {{ box.id }}</h4>
+            <small>Ref : {{ box.id }}</small>
         </div>
         <div class="card-body">
-            <h5 class="card-title">Nom : {{ box.name }}</h5>
-            <p class="card-text">Theme : {{ box.theme }}</p>
-            <p class="card-text">Cree le : {% if box.createdAt %}{{ box.createdAt|date('Y-m-d') }}{% endif %}</p>
-            <p class="card-text">Statut : {% if box.status %}disponible{% else %}indisponible{% endif %}</p>
-            <p class="card-text">Prix : {{ box.price }}</p>
-            <a href="{{ path('box_index') }}" class="card-link"><i class="fa fa-arrow-left" aria-hidden="true"></i>  retour</a>
-            <a href="{{ path('box_edit', { 'id': box.id }) }}" class="card-link"><i class="fa fa-edit"></i></a>
+            <p class="card-title">Nom : {{ box.name | title }}</p>
+            <p class="card-text">Theme : {{ box.theme | title }}</p>
+            <p class="card-text">Cree le : {% if box.createdAt %}{{ box.createdAt|date('d-m-Y') }}{% endif %}</p>
+            <p class="card-text">Prix : {{ box.price }} €</p>
             <ul>
                 {% for product in box.products %}
                     <li>{{ product.name }}</li>
+                {% else %}
+                    <p class="card-text">Pas de produit associé</p>
+
                 {% endfor %}
             </ul>
-            {{ form_start(delete_form) }}
-            <button type="submit" class="btn btn-danger btn-sm"><i class="fa fa-times" aria-hidden="true"></i> Supprimer</button>
-            {{ form_end(delete_form) }}
+            <p class="card-text">Statut : {{ box.statut }}</p>
+
+            {% if workflow_can(box, 'to_review' ) and is_granted('ROLE_MARKETING') %}
+                <a href="{{ path('box_to_review', {'id' : box.id}) }}" class="btn btn-primary">pass to review</a>
+            {% endif %}
+
+            {% if workflow_can(box, 'publish') and is_granted('ROLE_ACHAT') %}
+                <a href="" class="btn btn-primary">pass to publish</a>
+            {% endif %}
+
+            {% if workflow_can(box, 'reject' ) %}
+                <a href="" class="btn btn-danger">pass to reject</a>
+            {% endif %}
+
+            <a href="{{ path('box_index') }}" class="btn btn-info"><i class="fa fa-arrow-left" aria-hidden="true"></i>  retour</a>
+
+            {% if workflow_has_marked_place(box, 'draft') %}
+                {{ form_start(delete_form) }}
+                <button type="submit" class="btn btn-danger btn-sm"><i class="fa fa-times" aria-hidden="true"></i> Supprimer</button>
+                {{ form_end(delete_form) }}
+                <a href="{{ path('box_edit', { 'id': box.id }) }}" class="btn btn-primary"><i class="fa fa-edit"></i> Modifier</a>
+            {% endif %}
             
         </div>
     </div>

@@ -60,9 +60,9 @@ class Box
     /** 
      * @var string
      *
-     * @ORM\Column(name="status", type="boolean")
+     * @ORM\Column(name="statut", type="string")
      */
-    private $status;
+    private $statut;
 
 
 
@@ -148,29 +148,7 @@ class Box
         return $this->createdAt;
     }
 
-    /**
-     * Set status
-     *
-     * @param boolean $status
-     *
-     * @return Box
-     */
-    public function setStatus($status)
-    {
-        $this->status = $status;
 
-        return $this;
-    }
-
-    /**
-     * Get status
-     *
-     * @return boolean
-     */
-    public function getStatus()
-    {
-        return $this->status;
-    }
 
     /**
      * Set products
@@ -249,5 +227,29 @@ class Box
     public function getPrice()
     {
         return $this->price;
+    }
+
+    /**
+     * Set statut
+     *
+     * @param string $statut
+     *
+     * @return Box
+     */
+    public function setStatut($statut)
+    {
+        $this->statut = $statut;
+
+        return $this;
+    }
+
+    /**
+     * Get statut
+     *
+     * @return string
+     */
+    public function getStatut()
+    {
+        return $this->statut;
     }
 }

@@ -3,6 +3,7 @@
 namespace AppBundle\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
+use Symfony\Component\Validator\Constraints as Assert;
 
 /**
  * Box
@@ -23,7 +24,7 @@ class Box
 
     /**
      * @var string
-     * one box has many products
+     * many boxes have many products
      * @ORM\ManyToMany(targetEntity="AppBundle\Entity\Product", mappedBy="box")
      */
     private $products;
@@ -36,8 +37,8 @@ class Box
     private $name;
     /**
      * @var string
-    *
-    * @ORM\Column(name="theme", type="string", length=255)
+    * @Assert\NotNull()
+    * @ORM\Column(name="theme")
     */
     private $theme;
 
@@ -59,9 +60,9 @@ class Box
     /** 
      * @var string
      *
-     * @ORM\Column(name="status", type="boolean")
+     * @ORM\Column(name="statut", type="string")
      */
-    private $status;
+    private $statut;
 
 
 
@@ -147,29 +148,7 @@ class Box
         return $this->createdAt;
     }
 
-    /**
-     * Set status
-     *
-     * @param boolean $status
-     *
-     * @return Box
-     */
-    public function setStatus($status)
-    {
-        $this->status = $status;
 
-        return $this;
-    }
-
-    /**
-     * Get status
-     *
-     * @return boolean
-     */
-    public function getStatus()
-    {
-        return $this->status;
-    }
 
     /**
      * Set products

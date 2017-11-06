@@ -4,6 +4,7 @@ namespace AppBundle\Controller;
 
 use AppBundle\Entity\Box;
 use AppBundle\Entity\Product;
+use Doctrine\Common\Persistence\ObjectManager;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Security;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Method;
@@ -47,6 +48,9 @@ class BoxController extends Controller
         $form->handleRequest($request);
 
         if ($form->isSubmitted() and $form->isValid()) {
+            $workflow = $this->get('workflow.box_publishing');
+            $workflow->getMarking($box);
+            //$box->setStatut('draft');
             $box->setCreatedAt(new \DateTime());
             $em = $this->getDoctrine()->getManager();
             $em->persist($box);
@@ -137,5 +141,21 @@ class BoxController extends Controller
             ->setMethod('DELETE')
             ->getForm()
         ;
+    }
+
+    /**
+     * @Route("/to_review/{id}", name="box_to_review")
+     */
+    public function workflowToReviewAction(Request $request, ObjectManager $manager, $id)
+    {
+        $box = $manager->getRepository('AppBundle:Box')->find($id);
+        $workflow = $this->get('workflow.box_publishing');
+        if ($workflow->can($box, 'to_review')){
+            $workflow->apply($box, 'to_review');
+            $manager->flush();
+        }
+        return $this->redirectToRoute('box_show', ['id' => $box->getId()]);
+
+
     }
 }
