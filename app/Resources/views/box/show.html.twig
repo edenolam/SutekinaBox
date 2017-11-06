@@ -30,11 +30,11 @@
                 <a href="" class="btn btn-primary">pass to publish</a>
             {% endif %}
 
-            {% if workflow_can(box, 'reject' ) %}
+            {% if workflow_can(box, 'reject' ) and is_granted('ROLE_ACHAT')%}
                 <a href="" class="btn btn-danger">pass to reject</a>
             {% endif %}
 
-            <a href="{{ path('box_index') }}" class="btn btn-info"><i class="fa fa-arrow-left" aria-hidden="true"></i>  retour</a>
+            <a href="{{ path('box_index') }}" class="btn btn-info"><i class="fa fa-arrow-left" aria-hidden="true"></i>  Retour a la liste</a>
 
             {% if workflow_has_marked_place(box, 'draft') %}
                 {{ form_start(delete_form) }}

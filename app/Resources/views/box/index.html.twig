@@ -27,7 +27,13 @@
                 <td>{{ box.theme }}</td>
                 <td>{% if box.createdAt %}{{ box.createdAt|date('d-m-Y') }}{% endif %}</td>
                 <td>{{ box.statut }}</td>
-                <td>{{ box.products | length }}</td>
+                <td>
+                    <ul>
+                        {% for product in box.products %}
+                            <li>{{ product.name }}</li>
+                        {% endfor %}
+                    </ul>
+                </td>
                 <td><a href="{{ path('box_show', { 'id': box.id }) }}"><i class="fa fa-eye"></i></a></td>
                 <td><a href="{{ path('box_edit', { 'id': box.id }) }}"><i class="fa fa-edit"></i></a></td>
                 <td><a href="{{ path('box_delete', { 'id': box.id }) }}"><i class="fa fa-trash"></i></a></td>

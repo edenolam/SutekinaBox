@@ -52,6 +52,15 @@ class Box
 
 
     /**
+     * @var integer
+     *
+     * @ORM\Column(name="budget", type="integer")
+     */
+    private $budget;
+
+
+
+    /**
      * @var /DateTime
      * @ORM\Column(name="createdAt", type="datetime")
      */
@@ -222,6 +231,7 @@ class Box
     /**
      * Get price
      *
+     *
      * @return integer
      */
     public function getPrice()
@@ -251,5 +261,21 @@ class Box
     public function getStatut()
     {
         return $this->statut;
+    }
+
+    /**
+     * @return int
+     */
+    public function getBudget()
+    {
+        return $this->budget;
+    }
+
+    /**
+     * @param int $budget
+     */
+    public function setBudget($budget)
+    {
+        $this->budget = $budget;
     }
 }

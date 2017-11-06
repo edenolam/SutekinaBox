@@ -15,7 +15,7 @@ framework:
                   - published
               transitions:
                   to_review:
-                      from: draft
+                      from: [draft, rejected]
                       to:   review
                   publish:
                       from: review
@@ -23,3 +23,27 @@ framework:
                   reject:
                       from: review
                       to:   rejected
+
+          product_publishing:
+                type: 'workflow'
+                marking_store:
+                    type: 'single_state'
+                    arguments:
+                        - 'statut'
+                supports:
+                    - AppBundle\Entity\Product
+                places:
+                    - draft
+                    - review
+                    - rejected
+                    - published
+                transitions:
+                    to_review:
+                        from: [draft, rejected]
+                        to:   review
+                    publish:
+                        from: review
+                        to:   published
+                    reject:
+                        from: review
+                        to:   rejected

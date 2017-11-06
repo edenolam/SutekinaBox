@@ -68,6 +68,13 @@ class Product
     private $categories;
 
 
+    /**
+     * @var string
+     *
+     * @ORM\Column(name="statut", type="string")
+     */
+    private $statut;
+
 
 
     /**
@@ -303,5 +310,29 @@ class Product
     public function getCategories()
     {
         return $this->categories;
+    }
+
+    /**
+     * Set statut
+     *
+     * @param string $statut
+     *
+     * @return Product
+     */
+    public function setStatut($statut)
+    {
+        $this->statut = $statut;
+
+        return $this;
+    }
+
+    /**
+     * Get statut
+     *
+     * @return string
+     */
+    public function getStatut()
+    {
+        return $this->statut;
     }
 }

@@ -3,6 +3,8 @@
 namespace AppBundle\Controller;
 
 use AppBundle\Entity\Product;
+use Doctrine\Common\Persistence\ObjectManager;
+use Sensio\Bundle\FrameworkExtraBundle\Configuration\Security;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Method;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
@@ -18,7 +20,9 @@ class ProductController extends Controller
     /**
      * Lists all product entities.
      *
+     *
      * @Route("/", name="product_index")
+     * @Security("has_role('ROLE_ACCES_PRODUIT')")
      * @Method("GET")
      */
     public function indexAction()
@@ -36,6 +40,7 @@ class ProductController extends Controller
      * Creates a new product entity.
      *
      * @Route("/new", name="product_new")
+     * @Security("has_role('ROLE_FOURNISSEUR')")
      * @Method({"GET", "POST"})
      */
     public function newAction(Request $request)
@@ -60,7 +65,7 @@ class ProductController extends Controller
 
     /**
      * Finds and displays a product entity.
-     *
+     * @Security("has_role('ROLE_ACCES_PRODUIT')")
      * @Route("/{id}", name="product_show")
      * @Method("GET")
      */
@@ -78,6 +83,7 @@ class ProductController extends Controller
      * Displays a form to edit an existing product entity.
      *
      * @Route("/{id}/edit", name="product_edit")
+     * @Security("has_role('ROLE_FOURNISSEUR')")
      * @Method({"GET", "POST"})
      */
     public function editAction(Request $request, Product $product)
@@ -103,6 +109,7 @@ class ProductController extends Controller
      * Deletes a product entity.
      *
      * @Route("/{id}", name="product_delete")
+     * @Security("has_role('ROLE_FOURNISSEUR')")
      * @Method("DELETE")
      */
     public function deleteAction(Request $request, Product $product)
@@ -134,4 +141,23 @@ class ProductController extends Controller
             ->getForm()
         ;
     }
+
+    /**
+     * @Route("/to_review/{id}", name="product_to_review")
+     */
+    public function workflowToReviewAction(Request $request, ObjectManager $manager, $id)
+    {
+        $product = $manager->getRepository('AppBundle:Product')->find($id);
+        $workflow = $this->get('workflow.product_publishing');
+        if ($workflow->can($product, 'to_review')){
+            $workflow->apply($product, 'to_review');
+            $manager->flush();
+        }
+        return $this->redirectToRoute('product_show', ['id' => $product->getId()]);
+
+
+    }
+
+
+
 }

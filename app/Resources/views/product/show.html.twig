@@ -12,9 +12,23 @@
             <p class="card-text">Categorie : {{ product.categories.name }}</p>
 
 
-    <a href="{{ path('product_index') }}" class="btn btn-info"><i class="fa fa-arrow-left" aria-hidden="true"></i>  Retour</a>
+            <p class="card-text">Statut : {{ product.statut }}</p>
 
-    <a href="{{ path('product_edit', { 'id': product.id }) }}" class="btn btn-primary"><i class="fa fa-edit"></i> Modifier</a>
+            {% if workflow_can(product, 'to_review' ) and is_granted('ROLE_FOURNISSEUR') %}
+                <a href="{{ path('box_to_review', {'id' : box.id}) }}" class="btn btn-primary">pass to review</a>
+            {% endif %}
+
+            {% if workflow_can(product, 'publish') and is_granted('ROLE_ACHAT') %}
+                <a href="" class="btn btn-primary">pass to publish</a>
+            {% endif %}
+
+            {% if workflow_can(product, 'reject' ) and is_granted('ROLE_ACHAT')%}
+                <a href="" class="btn btn-danger">pass to reject</a>
+            {% endif %}
+
+            <a href="{{ path('product_index') }}" class="btn btn-info"><i class="fa fa-arrow-left" aria-hidden="true"></i>  Retour</a>
+
+            <a href="{{ path('product_edit', { 'id': product.id }) }}" class="btn btn-primary"><i class="fa fa-edit"></i> Modifier</a>
 
             {{ form_start(delete_form) }}
                 <input type="submit" class="btn btn-danger" value="supprimer">

@@ -2,14 +2,14 @@
 
 {% block body %}
     {% if app.user == null %}
-        connectez vous pour acceder a votre service
+        Connectez vous pour acceder a votre service.
     {% else %}
         bonjour {{ app.user }}
     {% endif %}
     {% if app.user == "fournisseur" or app.user == "achat" %}
-        <a href="{{ path('product_index') }}">afficher les produits</a>
+        <a href="{{ path('product_index') }}">Afficher les produits</a>
     {% elseif app.user == "marketing" %}
-        <a href="{{ path('box_new') }}">creer une box</a>
+        <a href="{{ path('box_new') }}">Creer une box</a>
     {% endif %}
 {% endblock %}
 

@@ -68,6 +68,13 @@ class Product
     private $categories;
 
 
+    /**
+     * @var string
+     *
+     * @ORM\Column(name="statut", type="string")
+     */
+    private $statut;
+
 
 
     /**

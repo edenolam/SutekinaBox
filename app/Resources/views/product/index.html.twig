@@ -11,6 +11,7 @@
                 <th>Image</th>
                 <th>Prix</th>
                 <th>Disponible</th>
+                <th>Statut</th>
                 <th>Categorie</th>
                 <th><i class="fa fa-eye"></i></th>
                 <th><i class="fa fa-edit"></i></th>
@@ -24,7 +25,8 @@
                 <td>{{ product.name }}</td>
                 <td><img src="{{ product.image.url }}" alt="{{ product.image.alt }}"></td>
                 <td>{{ product.price }}</td>
-                <td>{% if product.isAvailable %}Yes{% else %}No{% endif %}</td>
+                <td>{% if product.isAvailable %}yes{% else %}No{% endif %}</td>
+                <td>{{ product.statut }}</td>
                 <td>{{ product.categories.name }}</td>
                 <td><a href="{{ path('product_show', { 'id': product.id }) }}"><i class="fa fa-eye"></i></a></td>
                 <td><a href="{{ path('product_edit', { 'id': product.id }) }}"><i class="fa fa-edit"></i></a></td>

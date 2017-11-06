@@ -25,7 +25,7 @@ class Box
     /**
      * @var string
      * many boxes have many products
-     * @ORM\ManyToMany(targetEntity="AppBundle\Entity\Product", mappedBy="box")
+     * @ORM\ManyToMany(targetEntity="AppBundle\Entity\Product", inversedBy="box")
      */
     private $products;
 
@@ -48,6 +48,15 @@ class Box
      * @ORM\Column(name="price", type="integer")
      */
     private $price;
+
+
+
+    /**
+     * @var integer
+     *
+     * @ORM\Column(name="budget", type="integer")
+     */
+    private $budget;
 
 
 
@@ -222,10 +231,51 @@ class Box
     /**
      * Get price
      *
+     *
      * @return integer
      */
     public function getPrice()
     {
         return $this->price;
+    }
+
+    /**
+     * Set statut
+     *
+     * @param string $statut
+     *
+     * @return Box
+     */
+    public function setStatut($statut)
+    {
+        $this->statut = $statut;
+
+        return $this;
+    }
+
+    /**
+     * Get statut
+     *
+     * @return string
+     */
+    public function getStatut()
+    {
+        return $this->statut;
+    }
+
+    /**
+     * @return int
+     */
+    public function getBudget()
+    {
+        return $this->budget;
+    }
+
+    /**
+     * @param int $budget
+     */
+    public function setBudget($budget)
+    {
+        $this->budget = $budget;
     }
 }
