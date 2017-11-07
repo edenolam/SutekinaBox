@@ -16,14 +16,13 @@ security:
 
                     fournisseur:
                         password: fournisseur
-                        roles: ['ROLE_FOURNISSEUR', 'ROLE_ACCES_PRODUIT']
+                        roles: 'ROLE_FOURNISSEUR'
                     achat:
                         password: achat
-                        roles: ['ROLE_ACHAT', 'ROLE_ACCES_PRODUIT']
+                        roles: ['ROLE_ACHAT', 'ROLE_MARKETING']
 
     role_hierarchy:
         ROLE_ADMIN: ['ROLE_MARKETING', 'ROLE_FOURNISSEUR', 'ROLE_ACHAT']
-        ROLE_FOURNISSEUR: ['ROLE_ACHAT']
     firewalls:
         # disables authentication for assets and the profiler, adapt it according to your needs
         dev:
@@ -49,4 +48,5 @@ security:
     access_control:
         - { path: ^/admin, roles: ROLE_ADMIN }
         - { path: ^/box, roles: ROLE_MARKETING }
+        - { path: ^/box, roles: ROLE_ACHAT }
         - { path: ^/, roles: IS_AUTHENTICATED_ANONYMOUSLY }

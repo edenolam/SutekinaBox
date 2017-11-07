@@ -1,16 +1,24 @@
 {% extends 'base.html.twig' %}
 
 {% block body %}
-    {% if app.user == null %}
-        Connectez vous pour acceder a votre service.
-    {% else %}
-        bonjour {{ app.user }}
-    {% endif %}
-    {% if app.user == "fournisseur" or app.user == "achat" %}
-        <a href="{{ path('product_index') }}">Afficher les produits</a>
-    {% elseif app.user == "marketing" %}
-        <a href="{{ path('box_new') }}">Creer une box</a>
-    {% endif %}
+<div class="mx-auto" style="width: 600px;">
+        {% if app.user == null %}
+            <div class="alert alert-info">
+                <p>Connectez vous pour acceder a votre service.</p>
+            </div>
+
+        {% else %}
+            Bonjour {{ app.user | title }}
+        {% endif %}
+        {% if app.user == "fournisseur" %}
+            <a href="{{ path('product_index') }}" class="btn btn-info">Afficher les produits</a>
+        {% elseif app.user == "marketing" %}
+            <a href="{{ path('box_index') }}" class="btn btn-info">Afficher les boxes</a>
+        {% elseif  app.user == "achat" %}
+            <a href="{{ path('product_index') }}" class="btn btn-info">Afficher les produits</a>
+            <a href="{{ path('box_index') }}" class="btn btn-info">Afficher les boxes</a>
+        {% endif %}
+</div>
 {% endblock %}
 
 

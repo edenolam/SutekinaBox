@@ -56,7 +56,7 @@ class Box
      *
      * @ORM\Column(name="budget", type="integer")
      */
-    private $budget;
+    private $budget = 100;
 
 
 

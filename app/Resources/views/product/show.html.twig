@@ -27,12 +27,15 @@
             {% endif %}
 
             <a href="{{ path('product_index') }}" class="btn btn-info"><i class="fa fa-arrow-left" aria-hidden="true"></i>  Retour</a>
-
-            <a href="{{ path('product_edit', { 'id': product.id }) }}" class="btn btn-primary"><i class="fa fa-edit"></i> Modifier</a>
-
-            {{ form_start(delete_form) }}
+            {% if app.user == "fournisseur" %}
+                <a href="{{ path('product_edit', { 'id': product.id }) }}" class="btn btn-primary"><i class="fa fa-edit"></i> Modifier</a>
+                {{ form_start(delete_form) }}
                 <input type="submit" class="btn btn-danger" value="supprimer">
-            {{ form_end(delete_form) }}
+                {{ form_end(delete_form) }}
+            {% endif %}
+
+
+
         </div>
     </div>
 {% endblock %}

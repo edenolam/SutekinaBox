@@ -14,7 +14,6 @@ use Symfony\Component\HttpFoundation\Request;
  * Box controller.
  *
  * @Route("box")
- * @Security("has_role('ROLE_MARKETING')")
  */
 class BoxController extends Controller
 {

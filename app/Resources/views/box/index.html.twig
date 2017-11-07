@@ -8,6 +8,7 @@
             <tr>
                 <th>#</th>
                 <th>Nom</th>
+                <th>Image</th>
                 <th>Prix</th>
                 <th>Theme</th>
                 <th>date de creation</th>
@@ -23,6 +24,7 @@
             <tr>
                 <td><a href="{{ path('box_show', { 'id': box.id }) }}">{{ box.id }}</a></td>
                 <td>{{ box.name }}</td>
+                <td><i class="fa fa-gift fa-4x fa-spin" aria-hidden="true"></i></td>
                 <td>{{ box.price }} €</td>
                 <td>{{ box.theme }}</td>
                 <td>{% if box.createdAt %}{{ box.createdAt|date('d-m-Y') }}{% endif %}</td>
@@ -43,7 +45,9 @@
         </tbody>
     </table>
 
+    {% if app.user == "marketing" %}
+        <a href="{{ path('box_new') }}" class="btn btn-primary"><i class="fa fa-plus"></i> Créer une boxe</a>
+    {% endif %}
 
-    <a href="{{ path('box_new') }}" class="btn btn-primary"><i class="fa fa-plus"></i> Créer une boxe</a>
 
 {% endblock %}

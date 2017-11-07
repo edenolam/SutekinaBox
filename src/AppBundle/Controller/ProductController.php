@@ -22,7 +22,6 @@ class ProductController extends Controller
      *
      *
      * @Route("/", name="product_index")
-     * @Security("has_role('ROLE_ACCES_PRODUIT')")
      * @Method("GET")
      */
     public function indexAction()
@@ -40,7 +39,6 @@ class ProductController extends Controller
      * Creates a new product entity.
      *
      * @Route("/new", name="product_new")
-     * @Security("has_role('ROLE_FOURNISSEUR')")
      * @Method({"GET", "POST"})
      */
     public function newAction(Request $request)
@@ -50,6 +48,8 @@ class ProductController extends Controller
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
+            $workflow = $this->get('workflow.product_publishing');
+            $workflow->getMarking($product);
             $em = $this->getDoctrine()->getManager();
             $em->persist($product);
             $em->flush();
@@ -65,7 +65,6 @@ class ProductController extends Controller
 
     /**
      * Finds and displays a product entity.
-     * @Security("has_role('ROLE_ACCES_PRODUIT')")
      * @Route("/{id}", name="product_show")
      * @Method("GET")
      */
@@ -83,7 +82,6 @@ class ProductController extends Controller
      * Displays a form to edit an existing product entity.
      *
      * @Route("/{id}/edit", name="product_edit")
-     * @Security("has_role('ROLE_FOURNISSEUR')")
      * @Method({"GET", "POST"})
      */
     public function editAction(Request $request, Product $product)
@@ -109,7 +107,6 @@ class ProductController extends Controller
      * Deletes a product entity.
      *
      * @Route("/{id}", name="product_delete")
-     * @Security("has_role('ROLE_FOURNISSEUR')")
      * @Method("DELETE")
      */
     public function deleteAction(Request $request, Product $product)

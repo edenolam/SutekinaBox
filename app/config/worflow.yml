@@ -15,7 +15,7 @@ framework:
                   - published
               transitions:
                   to_review:
-                      from: [draft, rejected]
+                      from: draft
                       to:   review
                   publish:
                       from: review
@@ -39,7 +39,7 @@ framework:
                     - published
                 transitions:
                     to_review:
-                        from: [draft, rejected]
+                        from: draft
                         to:   review
                     publish:
                         from: review

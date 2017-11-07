@@ -37,7 +37,7 @@ class ProductType extends AbstractType
                 return $repository->getLikeQueryBuilder($pattern);
                 }
             ])
-            ->add('image', ImageType::class)
+           // ->add('image', ImageType::class)
 
         ;
     }

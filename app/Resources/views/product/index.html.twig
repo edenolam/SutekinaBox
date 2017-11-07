@@ -23,19 +23,24 @@
             <tr>
                 <td><a href="{{ path('product_show', { 'id': product.id }) }}">{{ product.id }}</a></td>
                 <td>{{ product.name }}</td>
-                <td><img src="{{ product.image.url }}" alt="{{ product.image.alt }}"></td>
+                <td><i class="fa fa-hand-spock-o fa-4x" aria-hidden="true"></i></td>
                 <td>{{ product.price }}</td>
                 <td>{% if product.isAvailable %}yes{% else %}No{% endif %}</td>
                 <td>{{ product.statut }}</td>
                 <td>{{ product.categories.name }}</td>
                 <td><a href="{{ path('product_show', { 'id': product.id }) }}"><i class="fa fa-eye"></i></a></td>
+                {% if app.user == "fournisseur" %}
                 <td><a href="{{ path('product_edit', { 'id': product.id }) }}"><i class="fa fa-edit"></i></a></td>
                 <td><a href="{{ path('product_delete', { 'id': product.id }) }}"><i class="fa fa-trash"></i></a></td>
+                    {% else %}
+                        <td><i class="fa fa-hand-stop-o"></i></td>
+                        <td><i class="fa fa-hand-stop-o"></i></td>
+                {% endif %}
             </tr>
         {% endfor %}
         </tbody>
     </table>
-
+{% if app.user == "fournisseur" %}
     <a href="{{ path('product_new') }}" class="btn btn-primary"><i class="fa fa-plus"></i> creer un produit</a>
-
+{% endif %}
 {% endblock %}
