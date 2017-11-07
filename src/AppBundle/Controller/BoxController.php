@@ -110,7 +110,6 @@ class BoxController extends Controller
      *
      * @Route("/{id}", name="box_delete")
      * @Method("DELETE")
-     * @Security()
      */
     public function deleteAction(Request $request, Box $box)
     {

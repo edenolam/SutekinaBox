@@ -15,7 +15,7 @@
             <p class="card-text">Statut : {{ product.statut }}</p>
 
             {% if workflow_can(product, 'to_review' ) and is_granted('ROLE_FOURNISSEUR') %}
-                <a href="{{ path('box_to_review', {'id' : box.id}) }}" class="btn btn-primary">pass to review</a>
+                <a href="{{ path('product_to_review', {'id' : product.id}) }}" class="btn btn-primary">pass to review</a>
             {% endif %}
 
             {% if workflow_can(product, 'publish') and is_granted('ROLE_ACHAT') %}
